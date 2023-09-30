@@ -183,8 +183,8 @@ def readData(ws_connection, settings):
         if not write_csv(result.text, file_name).status:
             return Result(False, "Write CSV Error")
 
-        if not turnOnOscilloscope(ws_connection, settings):
-            return Result(False, "Turn On error")
+        # if not turnOnOscilloscope(ws_connection, settings):
+        #    return Result(False, "Turn On error")
 
     return Result(True, "")
 

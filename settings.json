@@ -1,6 +1,6 @@
 {
     "ip_oscilloscope": "10.194.101.64",
-    "file_name": "FILE",
+    "file_name": "diodo_xy_2",
     "n_acquisizions": "2000",
     "n_file": "1",
     "url_csv": "http://{0}/doSave.asp?filename={1}&p1=104&p2={2}&ext=.csv",

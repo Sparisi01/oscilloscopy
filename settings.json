@@ -1,10 +1,10 @@
 {
-    "ip_oscilloscope": "10.194.101.64",
-    "file_name": "diodo_xy_2",
+    "ip_oscilloscope": "10.194.101.66",
+    "file_name": "sallen_key_risposta_impulsiva",
     "n_acquisizions": "2000",
     "n_file": "1",
     "url_csv": "http://{0}/doSave.asp?filename={1}&p1=104&p2={2}&ext=.csv",
     "url_file": "http://{0}/download.asp?filename={1}.csv&p1=8&p2={2}&file=0",
-    "activateOscilloscopeMessage": "",
-    "n_acquisitions": "2000"
+    "activateOscilloscopeMessage": "BwYBAwAAAAAAAAAABwcBAwAAAAAAAAAAAwEAAAAAAyAB4A==",
+    "n_acquisitions": "5000"
 }

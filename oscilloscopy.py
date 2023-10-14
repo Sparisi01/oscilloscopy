@@ -27,13 +27,15 @@ def main():
         print("Setting load error")
         return
 
-    # Open WebSocketConnection
     ws_url = "ws://" + settings["ip_oscilloscope"] + ":5850/"
-    ws_connection = None
+    # Open WebSocketConnection
+    ws_connection = True
     # ws_connection = openWebSocketConnection(ws_url)
-    # if ws_connection == None:
-    #     print("Ws Connection load error")
-    #     return
+    if ws_connection == None:
+        print("Ws Connection load error")
+        return
+
+    # turnOnOscilloscope(ws_connection, settings)
 
     print(welcomeMessage)
 
@@ -140,7 +142,20 @@ def write_settings(settings, file_name):
 def openWebSocketConnection(ws_url):
     try:
         ws = create_connection(ws_url, timeout=5)
+
+        #    print("Sending 'Hello, World'...")
+        #    ws = create_connection("ws://10.194.101.66:5850/")
+        #    print(ws.recv())
+        #
+        #    ws.send(settings["activateOscilloscopeMessage"])
+        #    print("Sent")
+        #    print("Receiving...")
+        #    # result = ws.recv()
+        #    # print("Received '%s'" % result)
+        #    ws.close()
+
         result = ws.recv()
+        print(result)
         return ws
     except:
         return None
@@ -205,8 +220,10 @@ def write_csv(csv, file_name):
 # -----------------------------------------------------------------------
 
 
-def turnOnOscilloscope(ws_connection, settings):
-    ws_connection.send(settings["activateOscilloscopeMessage"])
+def turnOnOscilloscope(ws, settings):
+    ws.send(settings["activateOscilloscopeMessage"])
+    result = ws.recv()
+    print(result)
     return True
 
 

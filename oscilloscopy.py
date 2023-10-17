@@ -47,6 +47,7 @@ def main():
                     Text(
                         "filename",
                         message="Enter the file name",
+                        default=settings["file_name"],
                     )
                 ]
                 filename = prompt(question)["filename"]
@@ -67,22 +68,28 @@ def main():
                 print("\n---- Setting loaded from settings.json ----\n")
 
             case "Change settings":
-                for key in ["file_name", "n_acquisitions", "n_file"]:
-                    # Retrieve the new key value
-                    questions = [
-                        Text(
-                            "setting",
-                            message=key,
-                        )
-                    ]
-                    settings[key] = prompt(questions)["setting"]
+                keys = list(settings.keys())
+                # Retrieve the new key value
+                questions = [
+                    List("setting", message="What's your next command?", choices=keys)
+                ]
+                settingToChange = prompt(questions)["setting"]
 
+                # Retrieve the new setting
+                question = [
+                    Text(
+                        "newValue",
+                        message=f"Enter the {settingToChange}",
+                        default=settings[settingToChange],
+                    )
+                ]
+                settings[settingToChange] = prompt(question)["newValue"]
                 # Override the settings.json file with the new one
                 result = write_settings(settings, "settings.json")
                 if not result.status:
                     print(result.text)
                     return
-                print("\n---- Settings saved ----\n")
+                print("\n---- Settings changed ----\n")
             case "Read data":
                 print("Reading data")
                 result = readData(ws_connection, settings)
@@ -118,6 +125,7 @@ def getCommand():
                 "Help",
                 "Exit",
             ],
+            carousel=True,
         )
     ]
     return prompt(options)["command"]
@@ -181,10 +189,11 @@ def readData(ws_connection, settings):
     cwd = getcwd()
     for i in tqdm(range(1, int(settings["n_file"]) + 1)):
         # If only one file will be saved, enumeration is not necessary
-        if settings["n_file"] == 1:
+        if int(settings["n_file"]) == 1:
             file_name = f"{cwd}\\files\\{settings['file_name']}.csv"
         else:
             file_name = f"{cwd}\\files\\{settings['file_name']}_{str(i)}.csv"
+
         # Make CSV request
         result = csv_request(settings)
         if result is None:

@@ -28,6 +28,7 @@ MANIFEST
 desktop.ini
 oscilloscopy.exe
 oscilloscopy.bat
+oscillosco_py.bat
 files/
 
 # PyInstaller
